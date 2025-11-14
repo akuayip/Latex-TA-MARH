@@ -2,52 +2,36 @@
 \chapter{PENDAHULUAN} \label{Bab I}
 
 \section{Latar Belakang} \label{I.Latar Belakang}
-Latar Belakang berisi dasar pemikiran, kebutuhan atau alasan yang menjadi ide dari topik tugas akhir. Tujuan utamanya adalah untuk memberikan informasi secukupnya kepada pembaca agar memahami topik yang akan dibahas. Terdapat dua hal yang wajib dikemukakan: \par
+Perkembangan teknologi kecerdasan buatan (Artificial Intelligence/ AI) telah membawa perubahan besar dalam berbagai bidang, termasuk dalam sistem pemantauan dan otomatisasi [1]. Pada awalnya, penerapan AI hanya terbatas pada perangkat dengan kemampuan komputasi tinggi seperti server dan pusat data. Namun, seiring dengan kemajuan teknologi komputasi, AI kini mulai diintegrasikan ke dalam perangkat tepi (edge devices) seperti kamera pengawas, sensor IoT, dan perangkat mobile [2]. Integrasi ini memungkinkan pengolahan data dilakukan secara real-time di lokasi sumber tanpa harus selalu bergantung pada server pusat [3]. Tren penerapan Edge AI menunjukkan peningkatan yang pesat di berbagai sektor, mulai dari sistem pengawasan cerdas (smart surveillance) yang mampu mendeteksi aktivitas mencurigakan secara lokal, aplikasi manufaktur untuk predictive maintenance, hingga perangkat kesehatan wearable yang digunakan dalam pemantauan kondisi pasien secara berkelanjutan [4]. Perkembangan ini menunjukkan bahwa Edge AI menjadi solusi strategis untuk mencapai efisiensi, keamanan data, serta respon cepat di lingkungan dengan keterbatasan konektivitas jaringan.
 
-\begin{enumerate}[noitemsep]
-	\item Deskripsi yang luas dan longgar yang berkaitan dengan bidang/masalah di masyarakat, industry dan atau bidang-bidang lainnya. Deskripsi ini mewakili bidang/masalah secara umum yang berkaitan dengan Teknik Informatika, bekerja dan akan terlibat di dalamnya. Sangat disarankan di sini, sebisa mungkin tidak ada Batasan tentang pilihan teknologi yang akan digunakan. Contoh: bidang transportasi, bidang telekomunikasi, bidang Pendidikan, bidang manufaktur, bidang renewable energi, pariwisata, militer, transportasi, kesehatan, pertanian, pengelolaan infrastruktur dan sebagainya.
-	\item Deskripsi lebih khusus dan mendetail yang didapatkan dari poin 1 di atas. Dari deskripsi umum di atas, selanjutkan fokuskan pada fenomena masalah yang akan diangkat. Pendetailan harus mampu membawa masalah kepada masalah yang mennjukkan peran Anda dalam penelitian 
-\end{enumerate}
+Salah satu penerapan strategis Edge AI tersebut adalah dalam manajemen smart building dan smart room, di mana kebutuhan akan pemantauan kepadatan ruangan (crowd counting) secara akurat menjadi aspek yang sangat krusial. Pemantauan kepadatan ruangan diperlukan untuk menjamin kenyamanan pengguna, efisiensi penggunaan energi, serta keselamatan dalam kondisi darurat seperti evakuasi [5]. Selain itu, informasi mengenai jumlah dan distribusi orang di dalam ruangan berperan penting dalam pengendalian sistem Heating, Ventilation, and Air Conditioning (HVAC) modern, yang menyesuaikan sirkulasi udara, pendinginan, dan ventilasi berdasarkan tingkat kepadatan manusia untuk menjaga kualitas udara dan menghemat energi [4][6]. Namun, metode konvensional seperti sensor pintu atau people counter berbasis IoT hanya menghitung jumlah orang yang masuk atau keluar tanpa mampu menunjukkan distribusi aktual di dalam ruangan [7]. Keterbatasan ini menyebabkan penurunan akurasi, terutama pada situasi  mobilitas tinggi, oklusi (occlusion),  maupun kerumunan yang padat, sehingga tidak optimal jika diintegrasikan dengan sistem HVAC yang adaptif[8].
+
+Kemajuan computer vision berbasis deep learning menawarkan solusi baru untuk mengatasi keterbatasan tersebut. Melalui algoritma object detection, sistem mampu mendeteksi manusia secara langsung melalui citra kepala atau tubuh, sehingga hasil perhitungan lebih presisi. Pendekatan berbasis deteksi kepala (head detection) dinilai lebih andal dibandingkan deteksi tubuh penuh atau peta kepadatan (density map), karena kepala lebih mudah terdeteksi meskipun terjadi occlusion pada area padat [9]. Salah satu algoritma populer dalam bidang ini adalah YOLO (You Only Look Once), yang dikenal karena kecepatan dan kemampuannya dalam melakukan deteksi secara real-time [10]. Namun, YOLO masih menghadapi tantangan terkait efisiensi komputasi, karena membutuhkan sumber daya GPU yang besar untuk mencapai performa optimal [11][12]. Kondisi ini menjadi kendala serius ketika algoritma tersebut diterapkan pada perangkat edge dengan daya dan memori terbatas [13]. 
+
+Tantangan efisiensi tersebut pada dasarnya disebabkan oleh  kompleksitas aritmatika yang tinggi, yang menjadi karakteristik utama pada banyak arsitektur deep learning [14]. Upaya untuk menurunkan kompleksitas waktu dan kebutuhan memori dapat dilakukan dengan meninjau proses aritmatika yang mendasari setiap model. Pada arsitektur berbasis Convolutional Neural Network (CNN), sebagian besar beban komputasi berasal dari operasi konvolusi dua dimensi yang bersifat kuadratik terhadap ukuran input, sehingga memerlukan banyak operasi perkalian dan penjumlahan [15]. Sementara itu, pada arsitektur berbasis Transformer, kompleksitasnya meningkat secara kuadratik terhadap panjang urutan (sequence length) akibat mekanisme self-attention yang membandingkan setiap elemen dalam urutan [16][17]. Adapun pada arsitektur State Space Model (SSM) seperti Mamba, pendekatan yang digunakan lebih efisien karena menghitung dependensi antarurutan secara linier, sehingga mengurangi kebutuhan komputasi dan memori secara signifikan [18].
+
+Sebagai respons terhadap permasalahan tersebut, penelitian terbaru berhasil mengembangkan arsitektur baru berbasis State Space Model (SSM) yang lebih efisien dalam pemrosesan data. Vision Mamba (ViM) hadir sebagai backbone pure-SSM yang mampu bekerja dengan kompleksitas linear, lebih hemat memori GPU, dan unggul pada pemrosesan citra resolusi tinggi [18]. Di sisi lain, Mamba-YOLO merupakan pengembangan dari YOLO yang mengintegrasikan ODMamba dan RG Block untuk meningkatkan efisiensi komputasi tanpa banyak mengorbankan akurasi [19]. Kedua arsitektur ini menawarkan potensi besar dalam pengembangan sistem deteksi modern yang lebih ringan, cepat, dan tetap kompetitif dari segi akurasi.
+
+Berdasarkan hal tersebut, Penelitian ini berfokus pada analisis komparatif antara arsitektur Vision Mamba dan Mamba-YOLO dalam estimasi kepadatan ruangan berbasis deteksi kepala. Penelitian sebelumnya mengenai Vision Mamba masih terbatas pada benchmark umum seperti ImageNet, COCO, dan ADE20K, sedangkan Mamba-YOLO dievaluasi pada dataset objek generik. Hingga kini belum ada penelitian yang secara khusus membandingkan keduanya dalam konteks estimasi kepadatan ruangan. Oleh karena itu, penelitian ini bertujuan untuk menganalisis keseimbangan antara efisiensi komputasi, yang diukur menggunakan metrik GFLOPs, latency, dan parameter count, serta efektivitas deteksi, yang dievaluasi melalui nilai mean Average Precision (mAP). Hasilnya diharapkan memberikan rekomendasi model yang optimal untuk sistem pemantauan keramaian secara real-time serta menjadi kajian awal terhadap potensi arsitektur berbasis Mamba dalam menggantikan dominasi YOLO.
+
+
 
 \section{Rumusan Masalah} \label{I.Rumusan Masalah}
-Merumuskan masalah secara konkrit, bentuk pertanyaan fakta / kebenaran yang masih dipertanyakan \par
-
-Dari pendahuluan di atas, mahasiswa diharapkan dapat memformulasikan masalah engineering yang solid. Masalah yang kemudian akan diformulasi mahasiswa harus terdefinisi dengan baik (harus jelas, tidak ambigu/ada makna ganda, tanpa menggunakan jargon), masalah harus real (benar-benar ada masalah terebut) sehingga nantinya akan ada solusi yang konkrit. Perlu dipertimbangkan juga masalah tersebut harus bisa dipecahkan dalam waktu maksimal 1 semester oleh mahasiswa dengan alokasi waktu per minggu tidak lebih dari 20 jam per minggu. \par
-
-Lebih jelasnya masalah yang diharapkan adalah seperti dalam 3 poin di bawah ini. Jika tidak mengandung semua unsur dibawah maka tugas akhir ini tidak memenuhi syarat sebagai tugas akhir. \par
-
-\begin{enumerate}[noitemsep]
-	\item Harus ada proses perancangan yang utuh dari penentuan masalah real yang perlu dipecahkan, 
-	\item Harus menjelaskan spesifikasi yang akan dibuat
-	\item Harus ada implementasi dalam bentuk salah satu di bawah ini:
-	\begin{enumerate}
-		\item Hardware/perangkat keras
-		\item Software/perangkat lunak
-		\item Proses/simulasi yang dibuat sendiri (Matlab, C/C++, Python, dan lain-lain) bukan melalui software yang murni dan sudah paten dan tinggal memasukkan data (ETAP, EDSA, SPSS, dan lain-lain)
-	\end{enumerate}
-\end{enumerate}
-
-Hasil rancangan dalam bentuk hardware/software/simulasi tersebut harus diuji dan diverifikasi apakah bekerja dengan baik atau belum Jika belum bekerja baik, mahasiswa harus bisa menjelaskan alasannya dan perbaikannya ke depan (walau pun saat tugas akhir ini selesai, alat/software/simulasi belum bisa bekerja).\par
-
-Selain itu, rumusan sangat disarankan untuk melibatkan pengalaman multidisiplin. Misalnya melibatkan unsur-unsur seperti seni, ekonomi, mekanik, politik, proses kimia, etika, kesehatan, dan sebagainya. Contoh-contoh rumusan masalah yang \textbf{tidak disarankan}: \par
-
-\begin{enumerate}[noitemsep]
-	\item \textbf{Masalah tidak real dan tidak terlalu hipotetis}. Misalnya, topik riset atau topik untuk lomba (contoh: mencari metode paling cepat untuk menentukan posisi kebakaran di dalam hutan).
-	\item Rumusan untuk membuat alat/produk yang \textbf{tidak dapat diimplemetasikan dan diukur/diuji dalam waktu maksimal 2 semester}. Misalnya membuat roket dengan daya jangkau 500 km.
-	\item \textbf{Solusi terlalu kompleks} sehingga dalam satu tahun hanya dapat menghasilkan bagian kecil dari solusi yang diharapkan Rumusan masalah berisi ringkasan fenomena dan masalah.
-\end{enumerate}
-
-Rumusan masalah akan dijawab di \nameref{V.Kesimpulan}. Rumusan Masalah disarankan untuk ditulis per poin.
+Berdasarkan latar belakang permasalahan yang telah dijelaskan, maka rumusan masalah pada penelitian ini adalah Bagaimana perbandingan dan analisis dari model deep learning pada faktor efisiensi dan efektivitas dalam kepadatan ruangan berbasis kepala manusia dengan menggunakan arsitektur Vision Mamba dan Mamba-YOLO?
 
 \section{Tujuan Penelitian} \label{I.Tujuan}
-Tujuan diisikan tujuan dari penelitian yang dilakukan, berdasarkan sub-bab \nameref{I.Latar Belakang} dan \nameref{I.Rumusan Masalah} dilengkapi dengan spesifikasinya. Tuliskan Tujuan sesuai dengan poin Rumusan Masalah. \par
-
+Berdasarkan rumusan masalah yang telah dijelaskan, maka Penelitian ini bertujuan untuk menganalisis dan membandingkan efisiensi (GFLOPs, latency) serta efektivitas (mAP) dari model Vision Mamba dan Mamba-YOLO dalam estimasi kepadatan ruangan berbasis kepala manusia.
 \section{Batasan Masalah} \label{I.Batasan}
 Batasan yang dimaksud disini ialah batasan dari penelitian tugas akhir yang dilakukan. Batasan masalah ditujukan agar tugas akhir yang dilakukan tidak terlalu luas, dan menjadi lebih realistis untuk diselesaikan. \par
 
 \section{Manfaat Penelitian} \label{I.Manfaat}
-Manfaat tugas akhir yang dilakukan didefinisikan sebagai manfaat yang diperoleh ketika tugas akhir telah selesai dilakukan. Manfaat dapat berupa manfaat untuk: \textbf{mahasiswa, program studi teknik informatika, ITERA, masyarakat, dunia akademisi, dan dunia penelitian}. \par
+Adapun manfaat yang diperoleh dari hasil penelitian ini adalah sebagai berikut: \par
 
+\begin{enumerate}[noitemsep]
+    \item Mengeksplorasi dan evaluasi arsitektur baru berbasis State Space Model (Vision Mamba dan Mamba-YOLO) yang lebih ringan dan hemat sumber daya, sehingga membuka peluang penerapan AI pada perangkat edge dengan keterbatasan daya dan memori.
+    \item Menjadi referensi bagi pengelola ruang publik (kelas, auditorium, stasiun, pusat perbelanjaan, dan sebagainya) dalam memilih model deteksi yang lebih efisien dan akurat untuk sistem pemantauan crowd secara real-time, sehingga dapat meningkatkan kenyamanan, efisiensi energi (misalnya pada sistem HVAC), serta keselamatan saat keadaan darurat.
+    \item Memberikan kontribusi dalam pengembangan ilmu pengetahuan, khususnya pada bidang computer vision dan object detection berbasis model Deep Learning dengan fokus pada estimasi kepadatan ruangan berbasis kepala manusia. 
+\end{enumerate}
 
 \section{Sistematika Penulisan} \label{I.Sistematika}
 Sistematika penulisan berisi pembahasan apa yang akan ditulis disetiap Bab. Sistematika pada umumnya berupa paragraf yang setiap paragraf mencerminkan bahasan setiap Bab. \par
